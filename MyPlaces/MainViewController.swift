@@ -14,8 +14,6 @@ class MainViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print(places)
     }
 
     // MARK: - Table view data source
@@ -44,6 +42,7 @@ class MainViewController: UITableViewController {
         return 85
     }
     
+    @IBAction func cancelAction(_ segue: UIStoryboardSegue) {}
     
     /*
     // MARK: - Navigation
