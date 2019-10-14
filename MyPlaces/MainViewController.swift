@@ -10,7 +10,7 @@ import UIKit
 
 class MainViewController: UITableViewController {
     
-    let places = Place.getPlaces()
+    var places = [Place]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,31 +18,51 @@ class MainViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return places.count
-    }
+//    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return places.count
+//    }
 
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CustomTableViewCell
-        
-        cell.nameLabel?.text = places[indexPath.row].name
-        cell.locationLabel?.text = places[indexPath.row].location
-        cell.typeLabel?.text = places[indexPath.row].type
-        
-        cell.imgeOfPlace?.image = UIImage(named: places[indexPath.row].image)
-        cell.imgeOfPlace?.layer.cornerRadius = cell.imgeOfPlace.frame.height / 2
-        cell.imgeOfPlace?.clipsToBounds = true
-        
-        return cell
-    }
+//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CustomTableViewCell
+//
+//        let place = places[indexPath.row]
+//
+//
+//        cell.nameLabel?.text = place.name
+//        cell.locationLabel?.text = place.location
+//        cell.typeLabel?.text = place.type
+//
+//        if place.image != nil {
+//            cell.imgeOfPlace?.image = place.image
+//        } else{
+//           cell.imgeOfPlace?.image = UIImage(named: place.restaurantImage!)
+//        }
+//
+//
+//        cell.imgeOfPlace?.layer.cornerRadius = cell.imgeOfPlace.frame.height / 2
+//        cell.imgeOfPlace?.clipsToBounds = true
+//
+//        return cell
+//    }
     
     // MARK: - Table view delegate
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 85
     }
     
-    @IBAction func cancelAction(_ segue: UIStoryboardSegue) {}
+    @IBAction func unwindSegue(_ segue: UIStoryboardSegue) {
+        guard let newPlaceVC = segue.source as? NewPlaceViewController else {
+            print ("Error customization newPlaceVC")
+            return
+        }
+        
+        newPlaceVC.saveNewPlace()
+        
+        places.append(newPlaceVC.newPlace)
+        
+        tableView.reloadData()
+    }
     
     /*
     // MARK: - Navigation
