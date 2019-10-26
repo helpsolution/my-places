@@ -12,7 +12,7 @@ class NewPlaceViewController: UITableViewController {
 
     var imageIsChanged = false
     
-    var currentPlace : Place?
+    var currentPlace : Place!
     
     @IBOutlet weak var imageOfPlace: UIImageView!
     
@@ -24,12 +24,18 @@ class NewPlaceViewController: UITableViewController {
     
     @IBOutlet weak var placeType: UITextField!
     
+    @IBOutlet weak var ratingController: RatingController!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         saveButton.isEnabled = false
-        tableView.tableFooterView = UIView()
+        tableView.tableFooterView = UIView(frame: CGRect(x: 0,
+                                                         y: 0,
+                                                         width: tableView.frame.size.width,
+                                                         height: 1) )
+        
         placeName.addTarget(self, action: #selector(nameFieldChanged), for: .editingChanged)
         
         setupEditScreen()
@@ -89,6 +95,7 @@ class NewPlaceViewController: UITableViewController {
         newPlace.location = placeLocation.text
         newPlace.type = placeType.text
         newPlace.imageData = image?.pngData()
+        newPlace.rating = Double(ratingController.rating)
 
         if currentPlace != nil{
             try! realm.write {
@@ -96,6 +103,7 @@ class NewPlaceViewController: UITableViewController {
                 currentPlace?.location = newPlace.location
                 currentPlace?.type = newPlace.type
                 currentPlace?.imageData = newPlace.imageData
+                currentPlace?.rating = newPlace.rating
             }
         } else {
             StorageManager.saveObject(newPlace)
@@ -119,6 +127,8 @@ class NewPlaceViewController: UITableViewController {
             placeName.text = currentPlace?.name
             placeLocation.text = currentPlace?.location
             placeType.text = currentPlace?.type
+            
+            ratingController.rating = Int(currentPlace.rating)
         }
     }
     
