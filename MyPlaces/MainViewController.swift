@@ -50,7 +50,7 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
             return filteredPlaces.count
         }
         
-        return places.isEmpty ? 0 : places.count
+        return places.count
     }
 
     
@@ -59,19 +59,13 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
         var place = Place()
         
-        if isFiltering {
-            place = filteredPlaces[indexPath.row]
-        } else {
-            place = places[indexPath.row]
-        }
+        place = isFiltering ? filteredPlaces[indexPath.row] : places[indexPath.row]
 
         cell.nameLabel?.text = place.name
         cell.locationLabel?.text = place.location
         cell.typeLabel?.text = place.type
         cell.imgeOfPlace.image = UIImage(data: place.imageData!)
-
-        cell.imgeOfPlace?.layer.cornerRadius = cell.imgeOfPlace.frame.height / 2
-        cell.imgeOfPlace?.clipsToBounds = true
+        cell.cosmosView.rating = place.rating
 
         return cell
     }
@@ -118,11 +112,13 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         if segue.identifier == "showDetails" {
             guard let indexPath = tableView.indexPathForSelectedRow else {return}
             let place : Place
+            
             if isFiltering {
                 place = filteredPlaces[indexPath.row]
             } else {
                 place = places[indexPath.row]
             }
+            
             let newPlaceVC = segue.destination as! NewPlaceViewController
             newPlaceVC.currentPlace = place
         }
