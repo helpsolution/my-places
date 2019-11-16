@@ -23,4 +23,9 @@ Simplify the process of keeping favorite places
 https://apps.apple.com/ru/app/places-keeper/id1486639114?l=en
 
 
+## Screenshots
+
+<img src="https://github.com/helpsolution/my-places/blob/master/MyPlaces/screenshots/2.png" width="240" height="440">     <img src="https://github.com/helpsolution/my-places/blob/master/MyPlaces/screenshots/1.png" width="240" height="440">     <img src="https://github.com/helpsolution/my-places/blob/master/MyPlaces/screenshots/3.png" width="240" height="440">     <img src="https://github.com/helpsolution/my-places/blob/master/MyPlaces/screenshots/5.png" width="240" height="440">     <img src="https://github.com/helpsolution/my-places/blob/master/MyPlaces/screenshots/4.png" width="240" height="440">
+
+
 
